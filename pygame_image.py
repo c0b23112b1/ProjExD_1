@@ -21,6 +21,7 @@ def main():
 
     tmr = 0
     while True:
+        a = b = 0
         x = tmr%3200
         for event in pg.event.get():
             if event.type == pg.QUIT: return
@@ -28,19 +29,21 @@ def main():
         key_lst = pg.key.get_pressed()
         if key_lst[pg.K_UP]:
             #print("上押された")
-            kk_rct.move_ip((0,-1))
+            b = -1
 
-        if key_lst[pg.K_DOWN]:
-            kk_rct.move_ip((0,1))
+        elif key_lst[pg.K_DOWN]:
+            b = 1
 
         if key_lst[pg.K_LEFT]:
-            kk_rct.move_ip((-1,0))
+            a = -2
 
-        if key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip((2,0))
+        elif key_lst[pg.K_RIGHT]:
+            a = 2
         
-        else:
-            kk_rct.move_ip((-1,0))
+        elif not key_lst[pg.K_RIGHT]:
+            a = -1
+
+        kk_rct.move_ip((a,b))
         
 
         screen.blit(bg_img, [-x, 0])
